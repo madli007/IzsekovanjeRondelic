@@ -10,14 +10,14 @@ namespace Library
         private int Length { get; set; }
         private int Width { get;  set; }
         public List<Point> PointsOfOrigin { get; set; }
-        public int[,] Matrix { get; private set; }
+        public string[,] Matrix { get; private set; }
 
         public Tape(int length, int width)
         {
             Length = length;
             Width = width;
             PointsOfOrigin = new List<Point>();
-            Matrix = new int[length, width];
+            Matrix = new string[length, width];
             PopulateMatrix();
         }
 
@@ -27,14 +27,30 @@ namespace Library
             {
                 for (int j = 0; j < Matrix.GetLength(1); j++)
                 {
-                    Matrix[i, j] = 0;
+                    Matrix[i, j] = "-";
                 }
             }
         }
 
         private void AddCylinderToMatrix(Rondelica r)
         {
-            Matrix[r.Position.X, r.Position.Y] = 1;
+            Matrix[r.Position.X, r.Position.Y] = "*";
+
+            for (int x = r.Position.X; x < r.Position.X + r.Radius; x++)
+            {
+                for (int y = r.Position.Y; y < r.Position.Y + r.Radius; y++)
+                {
+                    Matrix[x, y] = "2";
+                }
+            }
+
+            for (int x = r.Position.X + r.Radius; x > r.Position.X; x--)
+            {
+                for (int y = r.Position.Y + r.Radius; y > r.Position.Y; y--)
+                {
+                    Matrix[x, y] = "1";
+                }
+            }
         }
 
         public void PrintMatrix()
@@ -52,26 +68,29 @@ namespace Library
         public int MaxNumberOfCylindersRecPattern(Rondelica r)
         {
             int diameter = r.Radius * 2;
-            int space = r.MinDistC2C;
+            int spaceToWalls = r.MinDistC2Edge;
+            int spaceToCylinder = r.MinDistC2C;
             List<Rondelica> listOfCylinders = new List<Rondelica>();
             Point point = new Point();
             if (Length > 0 && Width > 0 && diameter > 0)
             {
-                if ((diameter + space) < Length && (diameter + space) < Width)
+                if ((diameter + spaceToWalls) < Length && (diameter + spaceToWalls) < Width)
                 {
-                    point.X = (diameter / 2) + space;
-                    point.Y = (diameter / 2) + space;
+                    point.X = (diameter / 2) + spaceToCylinder;
+                    point.Y = (diameter / 2) + spaceToCylinder;
                     do
                     {
                         do
                         {
                             Rondelica rondelica = new Rondelica(diameter / 2, r.MinDistC2C, r.MinDistC2Edge, point);
+                            PointsOfOrigin.Add(point);
                             listOfCylinders.Add(rondelica);
-                            point.X += diameter + space;
-                        } while (point.X + (diameter / 2) + space <= Length);
-                        point.X = (diameter / 2) + space;
-                        point.Y += diameter + space;
-                    } while (point.Y + (diameter / 2) + space <= Width);
+                            AddCylinderToMatrix(rondelica);
+                            point.X += diameter + spaceToCylinder;
+                        } while (point.X + (diameter / 2) + spaceToWalls <= Length);
+                        point.X = (diameter / 2) + spaceToCylinder;
+                        point.Y += diameter + spaceToCylinder;
+                    } while (point.Y + (diameter / 2) + spaceToWalls <= Width);
                 }
             }
             else

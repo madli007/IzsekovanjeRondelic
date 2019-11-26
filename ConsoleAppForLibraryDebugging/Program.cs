@@ -16,7 +16,7 @@ namespace ConsoleAppForLibraryDebugging
 
             Rondelica r = new Rondelica(radius, minDistC2C, minDistC2Edge, new Point());
             int a = t.MaxNumberOfCylindersRecPattern(r);
-            //t.PrintMatrix();
+            t.PrintMatrix();
             Console.WriteLine(a);
 
             Console.Read();
