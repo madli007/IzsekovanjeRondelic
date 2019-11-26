@@ -5,11 +5,13 @@ VisualStudioVersion = 15.0.28307.902
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "UI\UI.csproj", "{7303DA2B-E047-4A8E-8E70-8DE29C7E2653}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{65407322-0CA2-4AE3-9277-BB3F8818185F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "UnitTests\UnitTests.csproj", "{65407322-0CA2-4AE3-9277-BB3F8818185F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.csproj", "{12802816-136F-4FEA-BDC9-A99D32F2FF53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{12802816-136F-4FEA-BDC9-A99D32F2FF53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Library", "Library\Library.csproj", "{8BE6F058-F71C-4514-A56F-E1BF4D66EF30}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "Library\Library.csproj", "{8BE6F058-F71C-4514-A56F-E1BF4D66EF30}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppForLibraryDebugging", "ConsoleAppForLibraryDebugging\ConsoleAppForLibraryDebugging.csproj", "{F2B2C11F-E37A-47F7-94E8-D67949561AEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8BE6F058-F71C-4514-A56F-E1BF4D66EF30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BE6F058-F71C-4514-A56F-E1BF4D66EF30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BE6F058-F71C-4514-A56F-E1BF4D66EF30}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B2C11F-E37A-47F7-94E8-D67949561AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B2C11F-E37A-47F7-94E8-D67949561AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B2C11F-E37A-47F7-94E8-D67949561AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B2C11F-E37A-47F7-94E8-D67949561AEB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

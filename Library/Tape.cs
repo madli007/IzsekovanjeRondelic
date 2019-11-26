@@ -7,10 +7,10 @@ namespace Library
 {
     public class Tape
     {
-        public int Length { get; private set; }
-        public int Width { get;  private set; }
+        private int Length { get; set; }
+        private int Width { get;  set; }
         public List<Point> PointsOfOrigin { get; set; }
-        public int[,] Matrix { get; set; }
+        public int[,] Matrix { get; private set; }
 
         public Tape(int length, int width)
         {
@@ -30,8 +30,11 @@ namespace Library
                     Matrix[i, j] = 0;
                 }
             }
+        }
 
-            PrintMatrix();
+        private void AddCylinderToMatrix(Rondelica r)
+        {
+            Matrix[r.Position.X, r.Position.Y] = 1;
         }
 
         public void PrintMatrix()
@@ -42,8 +45,40 @@ namespace Library
                 {
                     Console.Write(string.Format("{0} ", Matrix[i, j]));
                 }
-                Console.Write(Environment.NewLine + Environment.NewLine);
+                Console.Write(Environment.NewLine);
             }
+        }
+
+        public int MaxNumberOfCylindersRecPattern(Rondelica r)
+        {
+            int diameter = r.Radius * 2;
+            int space = r.MinDistC2C;
+            List<Rondelica> listOfCylinders = new List<Rondelica>();
+            Point point = new Point();
+            if (Length > 0 && Width > 0 && diameter > 0)
+            {
+                if ((diameter + space) < Length && (diameter + space) < Width)
+                {
+                    point.X = (diameter / 2) + space;
+                    point.Y = (diameter / 2) + space;
+                    do
+                    {
+                        do
+                        {
+                            Rondelica rondelica = new Rondelica(diameter / 2, r.MinDistC2C, r.MinDistC2Edge, point);
+                            listOfCylinders.Add(rondelica);
+                            point.X += diameter + space;
+                        } while (point.X + (diameter / 2) + space <= Length);
+                        point.X = (diameter / 2) + space;
+                        point.Y += diameter + space;
+                    } while (point.Y + (diameter / 2) + space <= Width);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Wrong values");
+            }
+            return listOfCylinders.Count;
         }
     }
 }

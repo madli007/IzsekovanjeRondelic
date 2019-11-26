@@ -1,16 +1,13 @@
-using Library;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Library;
+using System;
 using System.Drawing;
 
-namespace UnitTests
+namespace ConsoleAppForLibraryDebugging
 {
-    [TestClass]
-    public class RondelicaTests
+    class Program
     {
-        [TestMethod]
-        public void TestMethod1()
+        static void Main(string[] args)
         {
-            // 21 bi moglo bit
             int radius = 10;
             int minDistC2C = 5;
             int minDistC2Edge = 10;
@@ -19,8 +16,10 @@ namespace UnitTests
 
             Rondelica r = new Rondelica(radius, minDistC2C, minDistC2Edge, new Point());
             int a = t.MaxNumberOfCylindersRecPattern(r);
+            //t.PrintMatrix();
+            Console.WriteLine(a);
 
-            Assert.AreEqual(21, a);
+            Console.Read();
         }
     }
 }
