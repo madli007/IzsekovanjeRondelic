@@ -1,6 +1,5 @@
 ﻿using Library;
 using System;
-using System.Drawing;
 
 namespace ConsoleAppForLibraryDebugging
 {

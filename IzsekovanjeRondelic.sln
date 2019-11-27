@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library", "Library\Library.csproj", "{8BE6F058-F71C-4514-A56F-E1BF4D66EF30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleAppForLibraryDebugging", "ConsoleAppForLibraryDebugging\ConsoleAppForLibraryDebugging.csproj", "{F2B2C11F-E37A-47F7-94E8-D67949561AEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleAppForLibraryDebugging", "ConsoleAppForLibraryDebugging\ConsoleAppForLibraryDebugging.csproj", "{F2B2C11F-E37A-47F7-94E8-D67949561AEB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
