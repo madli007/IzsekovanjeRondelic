@@ -35,19 +35,20 @@ namespace UI
             int.TryParse(TextBoxDistanceC2E.Text, out int minDistC2Edge);
             int.TryParse(TextBoxLength.Text, out int length);
             int.TryParse(TextBoxWidth.Text, out int width);
+            bool recPattern = RadioButtonRecPattern.IsChecked.Value;
 
             bool isOk = IsInputOK(radius, minDistC2C, minDistC2Edge, length, width);
 
             if (isOk)
             {
-                Tape t = new Tape(length, width);
-                Rondelica r = new Rondelica(radius, minDistC2C, minDistC2Edge, new Library.Point());
-                Draw(t, r);
-                FillListBoxWithPositions(t);
+                Tape tape = new Tape(length, width);
+                Rondelica rondelica = new Rondelica(radius, minDistC2C, minDistC2Edge, new Library.Point());
+                Draw(tape, rondelica, recPattern);
+                FillListBoxWithPositions(tape);
             }
             else
             {
-                MessageBox.Show("POGOJI: Polmer > 0, dolžina <= 10000, širina <= 2000", "Napačne vrednosti", 
+                MessageBox.Show("POGOJI: Polmer > 0, dolžina <= 10000, širina <= 2000", "Napačne vrednosti",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
@@ -60,7 +61,6 @@ namespace UI
             {
                 ok = false;
             }
-
 
             return ok;
         }
@@ -77,12 +77,20 @@ namespace UI
             }
         }
 
-        private void Draw(Tape t, Rondelica r)
+        private void Draw(Tape t, Rondelica r, bool recPattern)
         {
             Canvas1.Children.Clear();
             int scale = 1;
 
-            int a = t.MaxNumberOfCylindersRecPattern(r);
+            int a = 0;
+            if (recPattern)
+            {
+                a = t.MaxNumberOfCylindersRecPattern(r);
+            }
+            else
+            {
+                a = t.MaxNumberOfCylindersTriangularPattern(r);
+            }
 
             Rectangle rec = new Rectangle
             {
