@@ -17,8 +17,11 @@ namespace ConsoleAppForLibraryDebugging
             Tape t = new Tape(200, 100);
 
             Rondelica r = new Rondelica(radius, minDistC2C, minDistC2Edge, new Point());
-            int a = t.MaxNumberOfCylindersRecPattern(r);
+            int a = t.GetPositionsOfCylindersRecPattern(r).Count;
             Console.WriteLine(a);
+
+            t.MaxNumberOfCylindersRecPattern(r);
+            t.MaxNumberOfCylindersTriangularPattern(r);
 
             Console.Read();
         }

@@ -25,7 +25,7 @@ namespace Library
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
-        public int MaxNumberOfCylindersRecPattern(Rondelica r)
+        public List<Rondelica> GetPositionsOfCylindersRecPattern(Rondelica r)
         {
             int diameter = r.Radius * 2;
             int spaceToWalls = r.MinDistC2Edge;
@@ -58,7 +58,7 @@ namespace Library
                 Console.WriteLine("Wrong values");
             }
             ListOfCylinders = listOfCylinders;
-            return listOfCylinders.Count;
+            return listOfCylinders;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Library
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
-        public int MaxNumberOfCylindersTriangularPattern(Rondelica r)
+        public List<Rondelica> GetPositionsOfCylindersTriangularPattern(Rondelica r)
         {
             // TODO: fix
 
@@ -108,7 +108,29 @@ namespace Library
             }
 
             ListOfCylinders = listOfCylinders;
-            return listOfCylinders.Count;
+            return listOfCylinders;
+        }
+
+        public int MaxNumberOfCylindersRecPattern(Rondelica rondelica)
+        {
+            int cylindersPerLine = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2 + rondelica.MinDistC2C);
+            int cylindersPerColumn = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2 + rondelica.MinDistC2C);
+            int result = cylindersPerLine * cylindersPerColumn;
+            return result;
+        }
+
+        public int MaxNumberOfCylindersTriangularPattern(Rondelica rondelica)
+        {
+            // TODO: fix
+            int nrOfLines = Width / rondelica.Radius;
+            int nrOfColumns = (int)(Length / (rondelica.Radius * Math.Sqrt(3)));
+
+            int cylindersPerLine = nrOfLines / 2 - 1;
+            int cylindersPerColumn = nrOfColumns;
+
+            int result = cylindersPerLine * cylindersPerColumn;
+
+            return result;
         }
     }
 }

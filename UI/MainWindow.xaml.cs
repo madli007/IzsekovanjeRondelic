@@ -96,11 +96,11 @@ namespace UI
             int maxNumber = 0;
             if (recPattern)
             {
-                maxNumber = tape.MaxNumberOfCylindersRecPattern(rondelica);
+                maxNumber = tape.GetPositionsOfCylindersRecPattern(rondelica).Count;
             }
             else
             {
-                maxNumber = tape.MaxNumberOfCylindersTriangularPattern(rondelica);
+                maxNumber = tape.GetPositionsOfCylindersTriangularPattern(rondelica).Count;
             }
 
             Rectangle rectangle = new Rectangle
