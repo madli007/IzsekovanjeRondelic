@@ -36,7 +36,7 @@
         <GroupBox Header="Rezultat" Margin="10,299,10,48">
             <Grid Margin="10,10,-2,-12">
                 <Label Content="Skica" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.119,-0.086"/>
-                <Canvas x:Name="Canvas1" HorizontalAlignment="Left" Height="114" Margin="10,41,0,0" VerticalAlignment="Top" Width="333"/>
+                <Canvas x:Name="Canvas1" Margin="10,41,409,47"/>
                 <Label x:Name="Max1" Content="" HorizontalAlignment="Left" Margin="10,160,0,27" RenderTransformOrigin="0.119,-0.086"/>
 
             </Grid>

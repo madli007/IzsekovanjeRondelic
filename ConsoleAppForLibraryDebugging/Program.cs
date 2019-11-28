@@ -3,6 +3,9 @@ using System;
 
 namespace ConsoleAppForLibraryDebugging
 {
+    /// <summary>
+    /// 
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
@@ -13,7 +16,7 @@ namespace ConsoleAppForLibraryDebugging
 
             Tape t = new Tape(200, 100);
 
-            Rondelica r = new Rondelica(radius, minDistC2C, minDistC2Edge, new Library.Point());
+            Rondelica r = new Rondelica(radius, minDistC2C, minDistC2Edge, new Point());
             int a = t.MaxNumberOfCylindersRecPattern(r);
             Console.WriteLine(a);
 

@@ -37,6 +37,7 @@ namespace UI
             int.TryParse(TextBoxWidth.Text, out int width);
             bool recPattern = RadioButtonRecPattern.IsChecked.Value;
 
+            // check if the parameters are ok
             bool isOk = IsInputOK(radius, minDistC2C, minDistC2Edge, length, width);
 
             if (isOk)
@@ -65,57 +66,67 @@ namespace UI
             return ok;
         }
 
-        private void FillListBoxWithPositions(Tape t)
+        /// <summary>
+        /// Fills list box with cylinder positions
+        /// </summary>
+        /// <param name="tape"></param>
+        private void FillListBoxWithPositions(Tape tape)
         {
             ListBoxPositions1.Items.Clear();
-            for (int i = 0; i < t.ListOfCylinders.Count; i++)
+            for (int i = 0; i < tape.ListOfCylinders.Count; i++)
             {
                 string listBoxItem =
-                    "X: " + t.ListOfCylinders[i].Position.X.ToString() +
-                    ", Y: " + t.ListOfCylinders[i].Position.Y.ToString();
+                    "X: " + tape.ListOfCylinders[i].Position.X.ToString() +
+                    ", Y: " + tape.ListOfCylinders[i].Position.Y.ToString();
                 ListBoxPositions1.Items.Add(listBoxItem);
             }
         }
 
-        private void Draw(Tape t, Rondelica r, bool recPattern)
+        /// <summary>
+        /// Draw cylinders on tape with canvas element
+        /// </summary>
+        /// <param name="tape"></param>
+        /// <param name="rondelica"></param>
+        /// <param name="recPattern"></param>
+        private void Draw(Tape tape, Rondelica rondelica, bool recPattern)
         {
             Canvas1.Children.Clear();
             int scale = 1;
 
-            int a = 0;
+            int maxNumber = 0;
             if (recPattern)
             {
-                a = t.MaxNumberOfCylindersRecPattern(r);
+                maxNumber = tape.MaxNumberOfCylindersRecPattern(rondelica);
             }
             else
             {
-                a = t.MaxNumberOfCylindersTriangularPattern(r);
+                maxNumber = tape.MaxNumberOfCylindersTriangularPattern(rondelica);
             }
 
-            Rectangle rec = new Rectangle
+            Rectangle rectangle = new Rectangle
             {
-                Width = t.Length,
-                Height = t.Width,
+                Width = tape.Length,
+                Height = tape.Width,
                 Stroke = Brushes.Black
             };
-            Canvas1.Children.Add(rec);
+            Canvas1.Children.Add(rectangle);
 
-            for (int i = 0; i < t.ListOfCylinders.Count; i++)
+            for (int i = 0; i < tape.ListOfCylinders.Count; i++)
             {
-                Ellipse e = new Ellipse
+                Ellipse ellipse = new Ellipse
                 {
-                    Height = t.ListOfCylinders[i].Radius * 2,
-                    Width = t.ListOfCylinders[i].Radius * 2,
+                    Height = tape.ListOfCylinders[i].Radius * 2,
+                    Width = tape.ListOfCylinders[i].Radius * 2,
                     Stroke = Brushes.Black
                 };
 
-                Canvas.SetLeft(e, t.ListOfCylinders[i].Position.X - t.ListOfCylinders[i].Radius);
-                Canvas.SetTop(e, t.ListOfCylinders[i].Position.Y - t.ListOfCylinders[i].Radius);
+                Canvas.SetLeft(ellipse, tape.ListOfCylinders[i].Position.X - tape.ListOfCylinders[i].Radius);
+                Canvas.SetTop(ellipse, tape.ListOfCylinders[i].Position.Y - tape.ListOfCylinders[i].Radius);
 
-                Canvas1.Children.Add(e);
+                Canvas1.Children.Add(ellipse);
             }
 
-            Max1.Content = a.ToString();
+            Max1.Content = maxNumber.ToString();
         }
 
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)

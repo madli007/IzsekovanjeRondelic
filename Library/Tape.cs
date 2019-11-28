@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Library
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class Tape
     {
         public int Length { get; private set; }
@@ -17,6 +20,11 @@ namespace Library
             ListOfCylinders = new List<Rondelica>();
         }
 
+        /// <summary>
+        /// Calculate max number of cylinders that can be cut from rectangle with rectangle pattern method
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
         public int MaxNumberOfCylindersRecPattern(Rondelica r)
         {
             int diameter = r.Radius * 2;
@@ -53,6 +61,11 @@ namespace Library
             return listOfCylinders.Count;
         }
 
+        /// <summary>
+        /// Calculate max number of cylinders that can be cut from rectangle with triangle pattern method
+        /// </summary>
+        /// <param name="r"></param>
+        /// <returns></returns>
         public int MaxNumberOfCylindersTriangularPattern(Rondelica r)
         {
             // TODO: fix

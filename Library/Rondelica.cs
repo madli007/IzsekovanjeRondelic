@@ -3,6 +3,9 @@ using System.Drawing;
 
 namespace Library
 {
+    /// <summary>
+    /// Cylinder class
+    /// </summary>
     public class Rondelica
     {
         public Point Position { get; private set; }
