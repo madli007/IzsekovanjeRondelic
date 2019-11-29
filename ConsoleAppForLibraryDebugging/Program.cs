@@ -10,18 +10,21 @@ namespace ConsoleAppForLibraryDebugging
     {
         static void Main(string[] args)
         {
-            int radius = 10;
-            int minDistC2C = 5;
-            int minDistC2Edge = 10;
+            int radius = 50;
+            int minDistC2C = 10;
+            int minDistC2Edge = 144;
+            int length = 90;
+            int width = 3615;
 
-            Tape t = new Tape(200, 100);
+            Tape tape = new Tape(length, width);
 
-            Rondelica r = new Rondelica(radius, minDistC2C, minDistC2Edge, new Point());
-            int a = t.GetPositionsOfCylindersRecPattern(r).Count;
+            Rondelica rondelica = new Rondelica(radius, minDistC2C, minDistC2Edge, new Point());
+            int a = tape.GetPositionsOfCylindersRecPattern(rondelica).Count;
             Console.WriteLine(a);
 
-            t.MaxNumberOfCylindersRecPattern(r);
-            t.MaxNumberOfCylindersTriangularPattern(r);
+            int b = tape.MaxNumberOfCylindersRecPattern(rondelica);
+            Console.WriteLine(b);
+            tape.MaxNumberOfCylindersTriangularPattern(rondelica);
 
             Console.Read();
         }

@@ -45,7 +45,12 @@ namespace Library
                         do
                         {
                             Rondelica rondelica = new Rondelica(diameter / 2, r.MinDistC2C, r.MinDistC2Edge, new Point(x, y));
-                            listOfCylinders.Add(rondelica);
+                            // check space on the right of the cylinder
+                            if ((rondelica.Position.X + rondelica.Radius + spaceToWalls <= Length) &&
+                                rondelica.Position.Y + rondelica.Radius + spaceToWalls <= Width)
+                            {
+                                listOfCylinders.Add(rondelica);
+                            }
                             x += diameter + spaceToCylinder;
                         } while (x + (diameter / 2) + spaceToWalls <= Length);
                         x = (diameter / 2) + spaceToWalls;
@@ -113,9 +118,22 @@ namespace Library
 
         public int MaxNumberOfCylindersRecPattern(Rondelica rondelica)
         {
-            int cylindersPerLine = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2 + rondelica.MinDistC2C);
-            int cylindersPerColumn = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2 + rondelica.MinDistC2C);
+            // need to add 1 more spacing to length and width since the last spacing is already counted with space to edge
+            int cylindersPerLine = (Length - rondelica.MinDistC2Edge * 2 + rondelica.MinDistC2C) / (rondelica.Radius * 2 + rondelica.MinDistC2C);
+            int cylindersPerColumn = (Width - rondelica.MinDistC2Edge * 2 + rondelica.MinDistC2C) / (rondelica.Radius * 2 + rondelica.MinDistC2C);
             int result = cylindersPerLine * cylindersPerColumn;
+
+            if (rondelica.Radius == 0 || Length == 0 || Width == 0)
+            {
+                result = 0;
+            }
+
+            // in some cases where spacing is bigger than length or width
+            if (result < 0)
+            {
+                result = 0;
+            }
+
             return result;
         }
 
@@ -140,6 +158,11 @@ namespace Library
             int n = (int)((Length / rondelica.Radius - 2) / Math.Sqrt(3) + 1);
 
             //result = n * m;
+
+            if (rondelica.Radius == 0 || Length == 0 || Width == 0)
+            {
+                result = 0;
+            }
 
             return result;
         }
