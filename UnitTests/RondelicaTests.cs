@@ -10,6 +10,7 @@ namespace UnitTests
         [TestMethod]
         public void RecPatternNoSpacing()
         {
+            //TODO: test divide by zero exception
             int radius = 100;
             int minDistC2C = 0;
             int minDistC2Edge = 0;

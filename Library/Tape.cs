@@ -21,7 +21,7 @@ namespace Library
         }
 
         /// <summary>
-        /// Calculate max number of cylinders that can be cut from rectangle with rectangle pattern method
+        /// Calculate positions of cylinders with rectangle pattern method
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
@@ -36,7 +36,7 @@ namespace Library
 
             if (Length > 0 && Width > 0 && diameter > 0)
             {
-                if ((diameter + spaceToWalls) < Length && (diameter + spaceToWalls) < Width)
+                if ((diameter + spaceToWalls) <= Length && (diameter + spaceToWalls) <= Width)
                 {
                     x = (diameter / 2) + spaceToWalls;
                     y = (diameter / 2) + spaceToWalls;
@@ -67,7 +67,7 @@ namespace Library
         }
 
         /// <summary>
-        /// Calculate max number of cylinders that can be cut from rectangle with triangle pattern method
+        /// Calculate positions of cylinders with triangle pattern method
         /// </summary>
         /// <param name="r"></param>
         /// <returns></returns>
@@ -84,7 +84,7 @@ namespace Library
 
             if (Length > 0 && Width > 0 && diameter > 0)
             {
-                if ((diameter + spaceToWalls) < Length && (diameter + spaceToWalls) < Width)
+                if ((diameter + spaceToWalls) <= Length && (diameter + spaceToWalls) <= Width)
                 {
                     x = diameter / 2 + spaceToWalls;
                     y = diameter / 2 + spaceToWalls;
@@ -116,6 +116,11 @@ namespace Library
             return listOfCylinders;
         }
 
+        /// <summary>
+        /// Calculate max number of cylinders that can be cut from rectangle with rectangle pattern method
+        /// </summary>
+        /// <param name="rondelica"></param>
+        /// <returns></returns>
         public int MaxNumberOfCylindersRecPattern(Rondelica rondelica)
         {
             // need to add 1 more spacing to length and width since the last spacing is already counted with space to edge
@@ -137,6 +142,11 @@ namespace Library
             return result;
         }
 
+        /// <summary>
+        /// Calculate max number of cylinders that can be cut from rectangle with triangle pattern method
+        /// </summary>
+        /// <param name="rondelica"></param>
+        /// <returns></returns>
         public int MaxNumberOfCylindersTriangularPattern(Rondelica rondelica)
         {
             // TODO: fix
@@ -145,11 +155,17 @@ namespace Library
             // https://en.wikipedia.org/wiki/Circle_packing_in_a_square
             // https://www.engineeringtoolbox.com/circles-within-rectangle-d_1905.html
 
-            int nrOfLines = (Width - rondelica.MinDistC2Edge * 2) / rondelica.Radius;
-            int nrOfColumns = (int)Math.Ceiling((Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * Math.Sqrt(3)));
+            int nrOfLines = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
+            int nrOfColumns = (int)Math.Round((Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * Math.Sqrt(3)));
             //int nrOfColumns = (Length - rondelica.MinDistC2Edge * 2) / rondelica.Radius;
+            nrOfColumns = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2);
 
-            int cylindersPerLine = nrOfLines / 2 - 1;
+            int cylindersPerLine = nrOfLines / 2;
+            if (nrOfLines % 2 != 0)
+            {
+                cylindersPerLine--;
+            }
+
             int cylindersPerColumn = nrOfColumns;
 
             int result = cylindersPerLine * cylindersPerColumn;
@@ -160,6 +176,12 @@ namespace Library
             //result = n * m;
 
             if (rondelica.Radius == 0 || Length == 0 || Width == 0)
+            {
+                result = 0;
+            }
+
+            // in some cases where spacing is bigger than length or width
+            if (result < 0)
             {
                 result = 0;
             }
