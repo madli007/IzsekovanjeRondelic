@@ -122,13 +122,24 @@ namespace Library
         public int MaxNumberOfCylindersTriangularPattern(Rondelica rondelica)
         {
             // TODO: fix
-            int nrOfLines = Width / rondelica.Radius;
-            int nrOfColumns = (int)(Length / (rondelica.Radius * Math.Sqrt(3)));
+            // https://math.stackexchange.com/questions/2548513/maximum-number-of-circle-packing-into-a-rectangle
+            // http://mathworld.wolfram.com/CirclePacking.html
+            // https://en.wikipedia.org/wiki/Circle_packing_in_a_square
+            // https://www.engineeringtoolbox.com/circles-within-rectangle-d_1905.html
+
+            int nrOfLines = (Width - rondelica.MinDistC2Edge * 2) / rondelica.Radius;
+            int nrOfColumns = (int)Math.Ceiling((Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * Math.Sqrt(3)));
+            //int nrOfColumns = (Length - rondelica.MinDistC2Edge * 2) / rondelica.Radius;
 
             int cylindersPerLine = nrOfLines / 2 - 1;
             int cylindersPerColumn = nrOfColumns;
 
             int result = cylindersPerLine * cylindersPerColumn;
+
+            int m = (Width / rondelica.Radius - 1) / 2;
+            int n = (int)((Length / rondelica.Radius - 2) / Math.Sqrt(3) + 1);
+
+            //result = n * m;
 
             return result;
         }
