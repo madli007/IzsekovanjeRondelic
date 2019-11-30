@@ -31,6 +31,13 @@ namespace Service.Controllers
         [HttpGet("MaxRec/{length}/{width}/{radius}/{minDistC2C}/{minDistC2Edge}", Name = "GetMaxNumberOfCylindersRecPattern")]
         public string GetMaxNumberOfCylindersRecPattern(int length, int width, int radius, int minDistC2C, int minDistC2Edge)
         {
+            /*using (var db = new DatabaseLogger())
+            {
+                var requestInfo = new RequestInfo { Url = "http://sample.com", Time = DateTime.Now.ToString() };
+                db.RequestsInfo.Add(requestInfo);
+                db.SaveChanges();
+            }*/
+
             Tape tape = new Tape(length, width);
             Rondelica rondelica = new Rondelica(radius, minDistC2C, minDistC2Edge, new Point());
             return tape.MaxNumberOfCylindersRecPattern(rondelica).ToString();
