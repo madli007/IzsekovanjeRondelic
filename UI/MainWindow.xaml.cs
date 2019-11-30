@@ -40,6 +40,21 @@ namespace UI
             int.TryParse(TextBoxLength.Text, out int length);
             int.TryParse(TextBoxWidth.Text, out int width);
             bool recPattern = RadioButtonRecPattern.IsChecked.Value;
+            bool trianglePattern = RadioButtonTrianglePattern.IsChecked.Value;
+            string selectedPattern = "";
+
+            if (recPattern)
+            {
+                selectedPattern = "Rectangle";
+            }
+            else if (trianglePattern)
+            {
+                selectedPattern = "Triangle";
+            }
+            else
+            {
+                selectedPattern = "Optimal";
+            }
 
             // check if the parameters are ok
             bool isOk = IsInputOK(radius, minDistC2C, minDistC2Edge, length, width);
@@ -48,7 +63,7 @@ namespace UI
             {
                 Tape tape = new Tape(length, width);
                 Rondelica rondelica = new Rondelica(radius, minDistC2C, minDistC2Edge, new Library.Point());
-                Draw(tape, rondelica, recPattern);
+                Draw(tape, rondelica, selectedPattern);
                 FillListBoxWithPositions(tape);
             }
             else
@@ -109,8 +124,8 @@ namespace UI
         /// </summary>
         /// <param name="tape"></param>
         /// <param name="rondelica"></param>
-        /// <param name="recPattern"></param>
-        private void Draw(Tape tape, Rondelica rondelica, bool recPattern)
+        /// <param name="selectedPattern"></param>
+        private void Draw(Tape tape, Rondelica rondelica, string selectedPattern)
         {
             log.Info("Draw(Tape tape, Rondelica rondelica, bool recPattern) called");
 
@@ -118,13 +133,28 @@ namespace UI
             int scale = 1;
 
             int maxNumber = 0;
-            if (recPattern)
+            if (selectedPattern == "Rectangle")
             {
                 maxNumber = tape.GetPositionsOfCylindersRecPattern(rondelica).Count;
             }
-            else
+            else if (selectedPattern == "Triangle")
             {
                 maxNumber = tape.GetPositionsOfCylindersTriangularPattern(rondelica).Count;
+            }
+            // check which pattern is better
+            else
+            {
+                int recPatternNr = tape.GetPositionsOfCylindersRecPattern(rondelica).Count;
+                int trianglePatternNr = tape.GetPositionsOfCylindersTriangularPattern(rondelica).Count;
+
+                if (recPatternNr > trianglePatternNr)
+                {
+                    maxNumber = tape.GetPositionsOfCylindersRecPattern(rondelica).Count;
+                }
+                else
+                {
+                    maxNumber = tape.GetPositionsOfCylindersTriangularPattern(rondelica).Count;
+                }
             }
 
             Rectangle rectangle = new Rectangle

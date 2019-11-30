@@ -30,6 +30,7 @@
                 <Button x:Name="ButtonFillWithData" Content="Izpolni z vnaprej pripravljenimi podatki" HorizontalAlignment="Left" Margin="10,199,0,0" VerticalAlignment="Top" Width="221" Click="ButtonFillWithData_Click"/>
                 <RadioButton x:Name="RadioButtonRecPattern" Content="Preprost vzorec" HorizontalAlignment="Left" Margin="10,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.615,0.428" IsChecked="True"/>
                 <RadioButton x:Name="RadioButtonTrianglePattern" Content="Trikotniški vzorec" HorizontalAlignment="Left" Margin="118,163,0,0" VerticalAlignment="Top"/>
+                <RadioButton x:Name="RadioButtonOptimal" Content="Optimalni vzorec" HorizontalAlignment="Left" Margin="233,163,0,0" VerticalAlignment="Top"/>
             </Grid>
         </GroupBox>
 
