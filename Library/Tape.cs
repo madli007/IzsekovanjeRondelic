@@ -5,7 +5,7 @@ using System.Text;
 namespace Library
 {
     /// <summary>
-    /// 
+    /// Tape class
     /// </summary>
     public class Tape
     {
@@ -28,7 +28,7 @@ namespace Library
         public List<Rondelica> GetPositionsOfCylindersRecPattern(Rondelica r)
         {
             int diameter = r.Radius * 2;
-            int spaceToWalls = r.MinDistC2Edge;
+            int spaceToEdge = r.MinDistC2Edge;
             int spaceToCylinder = r.MinDistC2C;
             List<Rondelica> listOfCylinders = new List<Rondelica>();
             int x = 0;
@@ -36,26 +36,29 @@ namespace Library
 
             if (Length > 0 && Width > 0 && diameter > 0)
             {
-                if ((diameter + spaceToWalls) <= Length && (diameter + spaceToWalls) <= Width)
+                if ((diameter + spaceToEdge) <= Length && (diameter + spaceToEdge) <= Width)
                 {
-                    x = (diameter / 2) + spaceToWalls;
-                    y = (diameter / 2) + spaceToWalls;
+                    x = (diameter / 2) + spaceToEdge;
+                    y = (diameter / 2) + spaceToEdge;
                     do
                     {
                         do
                         {
                             Rondelica rondelica = new Rondelica(diameter / 2, r.MinDistC2C, r.MinDistC2Edge, new Point(x, y));
                             // check space on the right of the cylinder
-                            if ((rondelica.Position.X + rondelica.Radius + spaceToWalls <= Length) &&
-                                rondelica.Position.Y + rondelica.Radius + spaceToWalls <= Width)
+                            if ((rondelica.Position.X + rondelica.Radius + spaceToEdge <= Length) &&
+                                rondelica.Position.Y + rondelica.Radius + spaceToEdge <= Width)
                             {
                                 listOfCylinders.Add(rondelica);
                             }
+                            // increase x for diameter and space between cylinders
                             x += diameter + spaceToCylinder;
-                        } while (x + (diameter / 2) + spaceToWalls <= Length);
-                        x = (diameter / 2) + spaceToWalls;
+                        } while (x + (diameter / 2) + spaceToEdge <= Length);
+                        x = (diameter / 2) + spaceToEdge;
+
+                        // increase y for diameter and space between cylinders
                         y += diameter + spaceToCylinder;
-                    } while (y + (diameter / 2) + spaceToWalls <= Width);
+                    } while (y + (diameter / 2) + spaceToEdge <= Width);
                 }
             }
             else
@@ -76,7 +79,7 @@ namespace Library
             // TODO: fix
 
             int diameter = r.Radius * 2;
-            int spaceToWalls = r.MinDistC2Edge;
+            int spaceToEdge = r.MinDistC2Edge;
             int spaceToCylinder = r.MinDistC2C;
             List<Rondelica> listOfCylinders = new List<Rondelica>();
             int x = 0;
@@ -84,10 +87,10 @@ namespace Library
 
             if (Length > 0 && Width > 0 && diameter > 0)
             {
-                if ((diameter + spaceToWalls) <= Length && (diameter + spaceToWalls) <= Width)
+                if ((diameter + spaceToEdge) <= Length && (diameter + spaceToEdge) <= Width)
                 {
-                    x = diameter / 2 + spaceToWalls;
-                    y = diameter / 2 + spaceToWalls;
+                    x = diameter / 2 + spaceToEdge;
+                    y = diameter / 2 + spaceToEdge;
                     int triangle = 0;
                     do
                     {
@@ -95,20 +98,21 @@ namespace Library
                         {
                             Rondelica circle = new Rondelica(diameter / 2, r.MinDistC2C, r.MinDistC2Edge, new Point(x, y));
                             listOfCylinders.Add(circle);
+                            // increase x for diameter and space between cylinders
                             x += diameter + spaceToCylinder;
-                        } while (x + diameter / 2 + spaceToWalls <= Length);
+                        } while (x + diameter / 2 + spaceToEdge <= Length);
                         if (triangle == 0)
                         {
-                            x = (int)(diameter + 1.5 * spaceToWalls);
+                            x = (int)(diameter + 1.5 * spaceToEdge);
                             triangle = 1;
                         }
                         else
                         {
-                            x = diameter / 2 + spaceToWalls;
+                            x = diameter / 2 + spaceToEdge;
                             triangle = 0;
                         }
-                        y = (int)(y + Math.Pow(Math.Pow((diameter + spaceToWalls), 2) * 0.75, 0.5));
-                    } while (y + diameter / 2 + spaceToWalls <= Width);
+                        y = (int)(y + Math.Pow(Math.Pow((diameter + spaceToEdge), 2) * 0.75, 0.5));
+                    } while (y + diameter / 2 + spaceToEdge <= Width);
                 }
             }
 

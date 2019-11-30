@@ -1,22 +1,30 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Net;
 
 namespace Client
 {
+    /// <summary>
+    /// Intended for testing the service: https://localhost:44370/api/Cylinders
+    /// Need to run the Service project to start service in the background
+    /// </summary>
     class Program
     {
         static void Main(string[] args)
         {
-            int a = 0;
+            int menuItem = 0;
             string result = "";
 
+            // start menu
             do
             {
-                a = StartMainMenu();
-            } while (a <= 0 || a > 5);
+                menuItem = StartMainMenu();
+            } while (menuItem <= 0 || menuItem > 5);
 
-            switch (a)
+            // switch to choice
+            switch (menuItem)
             {
                 case 1:
                     result = GetMaxNumberOfCylindersRecPattern();
@@ -26,9 +34,13 @@ namespace Client
                     break;
                 case 3:
                     result = GetPositionsOfCylindersRecPattern();
+                    JToken jt1 = JToken.Parse(result);
+                    result = jt1.ToString(Formatting.Indented);
                     break;
                 case 4:
                     result = GetPositionsOfCylindersTriangularPattern();
+                    JToken jt2 = JToken.Parse(result);
+                    result = jt2.ToString(Formatting.Indented);
                     break;
                 case 5:
                     Console.WriteLine("Izhod");
@@ -42,6 +54,10 @@ namespace Client
             Console.Read();
         }
 
+        /// <summary>
+        /// Main menu
+        /// </summary>
+        /// <returns></returns>
         static int StartMainMenu()
         {
             Console.WriteLine("1 - Maksimalno število rondelic - preprost vzorec");
@@ -52,7 +68,6 @@ namespace Client
             Console.Write("Vnesite izbiro (1-5): ");
 
             string choice = Console.ReadLine();
-
             Console.WriteLine();
 
             int.TryParse(choice, out int choiceNr);
@@ -60,6 +75,11 @@ namespace Client
             return choiceNr;
         }
 
+        /// <summary>
+        /// Takes input data from console (length of the tape, width of the tape,
+        /// radius of cylinder, distance between cylinders, distance between cylinder and edge)
+        /// </summary>
+        /// <returns></returns>
         static Tuple<int, int, int, int, int> InputData()
         {
             bool isDataOk = true;
@@ -71,6 +91,7 @@ namespace Client
 
             do
             {
+                // take inputs from user
                 Console.Write("Vnesite dolžino traku: ");
                 string lengthInput = Console.ReadLine();
                 Console.Write("Vnesite širino traku: ");
@@ -82,12 +103,14 @@ namespace Client
                 Console.Write("Vnesite minimalno razdaljo med rondelicami in robovi: ");
                 string minDistC2EInput = Console.ReadLine();
 
+                // parse to integer
                 int.TryParse(lengthInput, out length);
                 int.TryParse(widthInput, out width);
                 int.TryParse(rInput, out r);
                 int.TryParse(minDistC2CInput, out minDistC2C);
                 int.TryParse(minDistC2EInput, out minDistC2E);
 
+                // validate data
                 isDataOk = ValidateInputData(length, width, r, minDistC2C, minDistC2E);
             } while (isDataOk == false);
 
@@ -96,6 +119,15 @@ namespace Client
             return tuple;
         }
 
+        /// <summary>
+        /// Validates input data from user
+        /// </summary>
+        /// <param name="length"></param>
+        /// <param name="width"></param>
+        /// <param name="r"></param>
+        /// <param name="minDistC2C"></param>
+        /// <param name="minDistC2E"></param>
+        /// <returns></returns>
         static bool ValidateInputData(int length, int width, int r, int minDistC2C, int minDistC2E)
         {
             if (length <= 0 || width <= 0 || r <= 0)
@@ -106,6 +138,11 @@ namespace Client
             return true;
         }
 
+        /// <summary>
+        /// Gets the result from service
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
         static string GetDataFromService(string url)
         {
             string downloadedString = "";
@@ -121,7 +158,10 @@ namespace Client
             return downloadedString;
         }
 
-
+        /// <summary>
+        /// Gets maximum number of Cylinders with rectangle pattern
+        /// </summary>
+        /// <returns></returns>
         static string GetMaxNumberOfCylindersRecPattern()
         {
             Tuple<int, int, int, int, int> data = InputData();
@@ -138,6 +178,10 @@ namespace Client
             return result;
         }
 
+        /// <summary>
+        /// Gets maximum number of Cylinders with triangular pattern
+        /// </summary>
+        /// <returns></returns>
         static string GetMaxNumberOfCylindersTriangularPattern()
         {
             Tuple<int, int, int, int, int> data = InputData();
@@ -154,6 +198,10 @@ namespace Client
             return result;
         }
 
+        /// <summary>
+        /// Gets json of positions of cylinders with rectangle pattern
+        /// </summary>
+        /// <returns></returns>
         static string GetPositionsOfCylindersRecPattern()
         {
             Tuple<int, int, int, int, int> data = InputData();
@@ -170,6 +218,10 @@ namespace Client
             return result;
         }
 
+        /// <summary>
+        /// Gets json of positions of cylinders with triangular pattern
+        /// </summary>
+        /// <returns></returns>
         static string GetPositionsOfCylindersTriangularPattern()
         {
             Tuple<int, int, int, int, int> data = InputData();

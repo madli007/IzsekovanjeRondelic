@@ -54,6 +54,15 @@ namespace UI
             }
         }
 
+        /// <summary>
+        /// Check if the input from user is ok
+        /// </summary>
+        /// <param name="radius"></param>
+        /// <param name="minDistC2C"></param>
+        /// <param name="minDistC2Edge"></param>
+        /// <param name="length"></param>
+        /// <param name="width"></param>
+        /// <returns></returns>
         private bool IsInputOK(int radius, int minDistC2C, int minDistC2Edge, int length, int width)
         {
             bool ok = true;
@@ -129,12 +138,22 @@ namespace UI
             Max1.Content = maxNumber.ToString();
         }
 
+        /// <summary>
+        /// Prevent input of non number characters
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
-
+        
+        /// <summary>
+        /// Input test data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonFillWithData_Click(object sender, RoutedEventArgs e)
         {
             TextBoxWidth.Text = "100";
@@ -144,6 +163,11 @@ namespace UI
             TextBoxDistanceC2E.Text = "10";
         }
 
+        /// <summary>
+        /// Exit the app
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuItemIzhod_Click(object sender, RoutedEventArgs e)
         {
             Close();

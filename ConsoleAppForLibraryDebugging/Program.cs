@@ -4,7 +4,7 @@ using System;
 namespace ConsoleAppForLibraryDebugging
 {
     /// <summary>
-    /// 
+    /// Intended for debugging purposes
     /// </summary>
     class Program
     {
