@@ -77,7 +77,6 @@ namespace Library
         public List<Rondelica> GetPositionsOfCylindersTriangularPattern(Rondelica r)
         {
             // TODO: fix
-
             int diameter = r.Radius * 2;
             int spaceToEdge = r.MinDistC2Edge;
             int spaceToCylinder = r.MinDistC2C;
@@ -103,7 +102,7 @@ namespace Library
                         } while (x + diameter / 2 + spaceToEdge <= Length);
                         if (triangle == 0)
                         {
-                            x = (int)(diameter + 1.5 * spaceToEdge);
+                            x = (int)Math.Round((diameter + 1.5 * spaceToEdge));
                             triangle = 1;
                         }
                         else
@@ -111,7 +110,7 @@ namespace Library
                             x = diameter / 2 + spaceToEdge;
                             triangle = 0;
                         }
-                        y = (int)(y + Math.Pow(Math.Pow((diameter + spaceToEdge), 2) * 0.75, 0.5));
+                        y += (int)Math.Round(Math.Pow(Math.Pow(diameter + spaceToEdge, 2) * 0.75, 0.5));
                     } while (y + diameter / 2 + spaceToEdge <= Width);
                 }
             }
@@ -179,26 +178,58 @@ namespace Library
 
              //result = n * m;*/
 
-            int tempWidth = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
-            int tempLength = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
+            /* int tempWidth = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
+             int tempLength = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
 
-            int nrOfLines = (int)Math.Round(((tempWidth - 2) / Math.Sqrt(3)) + 1);
+             int nrOfLines = (int)Math.Round(((tempWidth - 2) / Math.Sqrt(3)) + 1);
 
 
-            int cylindersPerLine = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2);
-            int cylindersPerColumn = Width / (rondelica.Radius * 2);
+             int cylindersPerLine = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2);
+             int cylindersPerColumn = Width / (rondelica.Radius * 2);
 
-            int result = cylindersPerLine * nrOfLines;
-            if (rondelica.Radius == 0 || Length == 0 || Width == 0)
+             int result = cylindersPerLine * nrOfLines;
+             if (rondelica.Radius == 0 || Length == 0 || Width == 0)
+             {
+                 result = 0;
+             }
+
+             // in some cases where spacing is bigger than length or width
+             if (result < 0)
+             {
+                 result = 0;
+             }*/
+
+            int result = 0;
+            bool oddNumber = false;
+
+            int nrPerLine = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2 + rondelica.MinDistC2C);
+
+            if (Length % (rondelica.Radius * 2) != 0)
             {
-                result = 0;
+                oddNumber = true;
             }
 
-            // in some cases where spacing is bigger than length or width
-            if (result < 0)
+            int nrOfLines = (int)Math.Floor((Width - rondelica.MinDistC2Edge * 2) / (Math.Sqrt(3) + rondelica.MinDistC2C));
+            
+            if (oddNumber)
             {
-                result = 0;
+                result = nrPerLine * nrOfLines;
             }
+            else
+            {
+                for (int i = 0; i < nrOfLines; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        result += nrPerLine;
+                    }
+                    else
+                    {
+                        result += nrPerLine - 1;
+                    }
+                }
+            }
+
 
             return result;
         }

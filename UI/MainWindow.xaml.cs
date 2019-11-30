@@ -22,6 +22,8 @@ namespace UI
     /// </summary>
     public partial class MainWindow : Window
     {
+        // for logging
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         public MainWindow()
         {
             InitializeComponent();
@@ -29,6 +31,8 @@ namespace UI
 
         private void ButtonCalculate_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("ButtonCalculate_Click(object sender, RoutedEventArgs e) called");
+
             // parse input data from textboxes
             int.TryParse(TextBoxRadius.Text, out int radius);
             int.TryParse(TextBoxDistanceC2C.Text, out int minDistC2C);
@@ -49,6 +53,11 @@ namespace UI
             }
             else
             {
+                log.Warn("Wrong input values: radius = " + radius.ToString() + 
+                    " length = " + length.ToString() + 
+                    " width = " + width.ToString() + 
+                    " min distance between cylinders = " + minDistC2C.ToString() + 
+                    " min distance between cylinder and edge = " + minDistC2Edge.ToString());
                 MessageBox.Show("POGOJI: Polmer > 0, dolžina <= 10000, širina <= 2000", "Napačne vrednosti",
                     MessageBoxButton.OK, MessageBoxImage.Information);
             }
@@ -65,9 +74,11 @@ namespace UI
         /// <returns></returns>
         private bool IsInputOK(int radius, int minDistC2C, int minDistC2Edge, int length, int width)
         {
+            log.Info("IsInputOK(int radius, int minDistC2C, int minDistC2Edge, int length, int width) called");
+
             bool ok = true;
 
-            if (radius == 0 || length > 10000 || width > 2000)
+            if (radius == 0 || length > 10000 || width > 2000 || length == 0 || width == 0)
             {
                 ok = false;
             }
@@ -81,6 +92,8 @@ namespace UI
         /// <param name="tape"></param>
         private void FillListBoxWithPositions(Tape tape)
         {
+            log.Info("FillListBoxWithPositions(Tape tape) called");
+
             ListBoxPositions1.Items.Clear();
             for (int i = 0; i < tape.ListOfCylinders.Count; i++)
             {
@@ -99,6 +112,8 @@ namespace UI
         /// <param name="recPattern"></param>
         private void Draw(Tape tape, Rondelica rondelica, bool recPattern)
         {
+            log.Info("Draw(Tape tape, Rondelica rondelica, bool recPattern) called");
+
             Canvas1.Children.Clear();
             int scale = 1;
 
@@ -135,7 +150,7 @@ namespace UI
                 Canvas1.Children.Add(ellipse);
             }
 
-            Max1.Content = maxNumber.ToString();
+            Max1.Content = "Število rondelic: " + maxNumber.ToString();
         }
 
         /// <summary>
@@ -145,6 +160,8 @@ namespace UI
         /// <param name="e"></param>
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
+            log.Info("NumberValidationTextBox(object sender, TextCompositionEventArgs e) called");
+
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
@@ -156,6 +173,8 @@ namespace UI
         /// <param name="e"></param>
         private void ButtonFillWithData_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("ButtonFillWithData_Click(object sender, RoutedEventArgs e) called");
+
             TextBoxWidth.Text = "100";
             TextBoxLength.Text = "200";
             TextBoxRadius.Text = "10";
@@ -170,6 +189,8 @@ namespace UI
         /// <param name="e"></param>
         private void MenuItemIzhod_Click(object sender, RoutedEventArgs e)
         {
+            log.Info("MenuItemIzhod_Click(object sender, RoutedEventArgs e) called");
+
             Close();
         }
     }

@@ -37,12 +37,11 @@
             <Grid Margin="10,10,-2,-12">
                 <Label Content="Skica" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.119,-0.086"/>
                 <Canvas x:Name="Canvas1" Margin="10,41,409,47"/>
-                <Label x:Name="Max1" Content="" HorizontalAlignment="Left" Margin="10,160,0,27" RenderTransformOrigin="0.119,-0.086"/>
-
             </Grid>
         </GroupBox>
         <ListBox x:Name="ListBoxPositions1" HorizontalAlignment="Left" Height="231" Margin="454,63,0,0" VerticalAlignment="Top" Width="136"/>
         <Label Content="Koordinate rondelic" HorizontalAlignment="Left" Margin="454,32,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.179,0.01"/>
+        <Label x:Name="Max1" Content="" HorizontalAlignment="Left" Margin="613,32,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

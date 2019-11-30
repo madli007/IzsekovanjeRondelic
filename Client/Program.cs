@@ -154,6 +154,7 @@ namespace Client
             catch (WebException e)
             {
                 Console.WriteLine("Napaka pri povezavi na servis ...");
+                Console.WriteLine(e.ToString());
             }
             return downloadedString;
         }

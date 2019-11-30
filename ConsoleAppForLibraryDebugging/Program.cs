@@ -10,17 +10,17 @@ namespace ConsoleAppForLibraryDebugging
     {
         static void Main(string[] args)
         {
-           /* int radius = 1;
+            int radius = 1;
             int minDistC2C = 0;
             int minDistC2Edge = 0;
             int length = 13;
-            int width = 13;*/
+            int width = 13;
 
-            int radius = 100;
+            /*int radius = 100;
             int minDistC2C = 0;
             int minDistC2Edge = 0;
             int length = 2000;
-            int width = 1000;
+            int width = 1000;*/
 
             Tape tape = new Tape(length, width);
 
