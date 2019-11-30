@@ -10,7 +10,7 @@ namespace Library
     public class Tape
     {
         public int Length { get; private set; }
-        public int Width { get; private  set; }
+        public int Width { get; private set; }
         public List<Rondelica> ListOfCylinders { get; private set; }
 
         public Tape(int length, int width)
@@ -155,26 +155,36 @@ namespace Library
             // https://en.wikipedia.org/wiki/Circle_packing_in_a_square
             // https://www.engineeringtoolbox.com/circles-within-rectangle-d_1905.html
 
-            int nrOfLines = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
-            int nrOfColumns = (int)Math.Round((Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * Math.Sqrt(3)));
-            //int nrOfColumns = (Length - rondelica.MinDistC2Edge * 2) / rondelica.Radius;
-            nrOfColumns = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2);
+            /* int nrOfLines = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
+             int nrOfColumns = (int)Math.Round((Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * Math.Sqrt(3)));
+             //int nrOfColumns = (Length - rondelica.MinDistC2Edge * 2) / rondelica.Radius;
+             nrOfColumns = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2);
 
-            int cylindersPerLine = nrOfLines / 2;
-            if (nrOfLines % 2 != 0)
-            {
-                cylindersPerLine--;
-            }
+             int cylindersPerLine = nrOfLines / 2;
+             if (nrOfLines % 2 != 0)
+             {
+                 cylindersPerLine--;
+             }
 
-            int cylindersPerColumn = nrOfColumns;
+             int cylindersPerColumn = nrOfColumns;
 
-            int result = cylindersPerLine * cylindersPerColumn;
+             int result = cylindersPerLine * cylindersPerColumn;
 
-            int m = (Width / rondelica.Radius - 1) / 2;
-            int n = (int)((Length / rondelica.Radius - 2) / Math.Sqrt(3) + 1);
+             int m = (Width / rondelica.Radius - 1) / 2;
+             int n = (int)((Length / rondelica.Radius - 2) / Math.Sqrt(3) + 1);
 
-            //result = n * m;
+             //result = n * m;*/
 
+            int tempWidth = (Width - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
+            int tempLength = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius);
+
+            int nrOfLines = (int)Math.Round(((tempWidth - 2) / Math.Sqrt(3)) + 1);
+
+
+            int cylindersPerLine = (Length - rondelica.MinDistC2Edge * 2) / (rondelica.Radius * 2);
+            int cylindersPerColumn = Width / (rondelica.Radius * 2);
+
+            int result = cylindersPerLine * nrOfLines;
             if (rondelica.Radius == 0 || Length == 0 || Width == 0)
             {
                 result = 0;

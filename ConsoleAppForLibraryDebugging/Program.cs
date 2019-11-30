@@ -10,11 +10,17 @@ namespace ConsoleAppForLibraryDebugging
     {
         static void Main(string[] args)
         {
-            int radius = 444;
-            int minDistC2C = 138;
+           /* int radius = 1;
+            int minDistC2C = 0;
             int minDistC2Edge = 0;
-            int length = 3032;
-            int width = 888;
+            int length = 13;
+            int width = 13;*/
+
+            int radius = 100;
+            int minDistC2C = 0;
+            int minDistC2Edge = 0;
+            int length = 2000;
+            int width = 1000;
 
             Tape tape = new Tape(length, width);
 
@@ -24,7 +30,13 @@ namespace ConsoleAppForLibraryDebugging
 
             int b = tape.MaxNumberOfCylindersRecPattern(rondelica);
             Console.WriteLine(b);
-            tape.MaxNumberOfCylindersTriangularPattern(rondelica);
+
+            Console.WriteLine("----------------");
+
+            int c = tape.GetPositionsOfCylindersTriangularPattern(rondelica).Count;
+            int d = tape.MaxNumberOfCylindersTriangularPattern(rondelica);
+
+            Console.WriteLine(c + " " + d);
 
             Console.Read();
         }
