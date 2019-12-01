@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Izsekovanje rondelic" Height="600" Width="800" WindowStartupLocation="CenterScreen">
     <Grid>
         <Menu Height="27" VerticalAlignment="Top">
             <MenuItem Header="Datoteka" Height="27" Width="59" HorizontalAlignment="Center">

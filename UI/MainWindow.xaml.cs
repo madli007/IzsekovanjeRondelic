@@ -130,7 +130,6 @@ namespace UI
             log.Info("Draw(Tape tape, Rondelica rondelica, bool recPattern) called");
 
             Canvas1.Children.Clear();
-            int scale = 1;
 
             int maxNumber = 0;
             if (selectedPattern == "Rectangle")
